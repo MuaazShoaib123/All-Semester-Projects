@@ -103,7 +103,7 @@ body {
 
 .btn:hover {
     background: none;
-    color: black;
+    color: orange;
 }
 .create-account-link {
     display: block;
