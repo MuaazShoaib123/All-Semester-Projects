@@ -25,7 +25,8 @@ async function login(req, res) {
         }
 
         if (Password == user.Password) {
-            return res.status(200).json({ message: 'Login successful' });
+            
+            return res.status(200).json({ message: user.FirstName + ' ' + user.LastName });
         } else {
             return res.status(401).json({ error: "Incorrect Password" });
         }

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+    <link rel="stylesheet" type="text/css" href="userhomepage.css">
+</head>
+
+<body>
+
+    <div class="form-container">
+        <h1>Welcome to the Expense Management Application</h1>
+    </div>
+    <div class="line-after-container">
+        <img src="profile-logo.png" alt="Your Image Alt Text">
+        <!-- You can add more content here -->
+
+        <div class="nav">
+
+            <p class ="active" id = "Name">  Name </p>
+            <a href="userhomepage.html" class="nav-item">
+                <i class="fas fa-home"></i>
+                <p>Home</p>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-chart-pie"></i>
+                <p>Plan Budget</p>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-dollar-sign"></i>
+                <p>Your Expenses</p>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-bell"></i>
+                <p>Reminders</p>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-lightbulb"></i>
+                <p>Recommendations</p>
+            </a>
+         </div>
+    </div>
+
+    <div class="last-container">
+        <!-- You can add more content here -->
+    </div>
+
+    <script src="https://kit.fontawesome.com/4077c6ef6a.js" crossorigin="anonymous"></script>
+    <script>
+       
+       const userName =  localStorage.getItem('Name');
+       document.getElementById('Name').textContent = userName;
+
+    </script>
+</body>
+
+</html>
