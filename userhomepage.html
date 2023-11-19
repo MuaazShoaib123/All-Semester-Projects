@@ -19,13 +19,13 @@
 
         <div class="nav">
 
-            <p class ="active" id = "Name">  Name </p>
+            <p class="active" id="Name"> Name </p>
             <a href="userhomepage.html" class="nav-item">
                 <i class="fas fa-home"></i>
                 <p>Home</p>
             </a>
-            <a href="#" class="nav-item">
-                <i class="fas fa-chart-pie"></i>
+            <a href="budgetpage.html" class="nav-item" onclick="getUserId(event)">
+                <i class="fas fa-chart-pie" ></i>
                 <p>Plan Budget</p>
             </a>
             <a href="#" class="nav-item">
@@ -40,7 +40,7 @@
                 <i class="fas fa-lightbulb"></i>
                 <p>Recommendations</p>
             </a>
-         </div>
+        </div>
     </div>
 
     <div class="last-container">
@@ -49,9 +49,45 @@
 
     <script src="https://kit.fontawesome.com/4077c6ef6a.js" crossorigin="anonymous"></script>
     <script>
-       
-       const userName =  localStorage.getItem('Name');
-       document.getElementById('Name').textContent = userName;
+
+        const userName = localStorage.getItem('Name');
+        const nameWithoutQuotes = userName.replace(/"/g, '');
+        document.getElementById('Name').textContent = nameWithoutQuotes;
+        const names = nameWithoutQuotes.split(' ');
+        const firstName = names[0];
+        const lastName = names.slice(1).join(' ');
+        
+        async function getUserId(event) {
+            
+            event.preventDefault();
+            const userData = {
+            FirstName: firstName,
+            LastName: lastName
+        };
+
+            try {
+                const response = await fetch('http://localhost:3005/api/getid', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userData),
+                });
+
+                if (response.ok) {
+                    const userId = await response.json();
+                    console.log(userId)
+                    localStorage.setItem('UserId', JSON.stringify(userId))
+                    window.location.href = 'budgetpage.html';
+                } else {
+                    const error = await response.json();
+                    console.error(error);
+                    alert('Not Found');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
 
     </script>
 </body>

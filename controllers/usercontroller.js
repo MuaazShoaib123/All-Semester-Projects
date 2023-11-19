@@ -35,11 +35,29 @@ async function login(req, res) {
     }
 }
 
+async function getuserid (req,res){
+   
+  const {FirstName,LastName} = req.body;
 
+  try {
+    const user = await User.findOne({ FirstName });
+
+    if (LastName == user.LastName) {
+        
+        return res.json(user._id)
+    } else {
+        return res.status(401).json({ error: "User not Found" });
+    }
+} catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+}
+
+}
 
 
 
 module.exports = {
     adduser,
     login,
+    getuserid,
 };

@@ -31,9 +31,8 @@
 
     <script src="https://kit.fontawesome.com/4077c6ef6a.js" crossorigin="anonymous"></script>
     <script>
-        
      
-       
+      window.onload = localStorage.clear();
         async function Login(event) {
             event.preventDefault();
             const email = document.getElementById('email').value;
@@ -58,12 +57,11 @@
                 console.log(Message)
                 localStorage.clear()
                 localStorage.setItem('Name',JSON.stringify(result.message))
-                console.log(Message)
                 window.location.href= 'userhomepage.html';
             } else {
                 const error = await response.json();
                 console.error(error);
-                alert('Incorrect Password');
+                alert("Incorrect Email or Password");
             }
             } catch (error) {
                 console.error('Error:', error);

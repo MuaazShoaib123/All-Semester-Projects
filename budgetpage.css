@@ -1,0 +1,92 @@
+/* Your existing CSS styles go here */
+
+body {
+    background: url('background.jpeg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.form-container {
+    font-family: 'Poppins', sans-serif;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-left: 15px solid green; /* Adjust the color as needed */
+    border-top: 5px solid green; /* Adjust the color as needed */
+    border-right: 15px solid green; /* Adjust the color as needed */
+    border-bottom: 5px solid green; /* Adjust the color as needed */
+    text-align: center; /* Center-align the title */
+    position: relative;
+}
+
+.form-container h1 {
+    font-family: 'Poppins', sans-serif;
+    margin-top: 0;
+    text-decoration: underline; /* Remove default margin for the title */
+}
+
+.nav {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px; /* Adjust the space from the title */
+}
+
+.nav-item {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    align-items: center;
+    font-weight: 550;
+    font-size: medium;
+}
+
+.nav-item p {
+    margin-left: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+}
+.nav-item:hover {
+    background-color: lightgreen;
+}
+
+
+@keyframes onloadAnim {
+    from {
+        transform: translateY(-88%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+/* Responsivity */
+
+@media only screen and (max-width: 990px) {
+    body {
+        background-size: 130%;
+    }
+}
+
+@media only screen and (max-width: 740px) {
+    body {
+        background-size: 175%;
+    }
+}
+
+@media only screen and (max-width: 555px) {
+    body {
+        background-size: 245%;
+    }
+}
+
+@media only screen and (max-width: 420px) {
+    body {
+        background-size: 265%;
+    }
+}
+
+@media only screen and (max-width: 380px) {
+    body {
+        background-size: 320%;
+    }
+}
