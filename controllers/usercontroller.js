@@ -11,7 +11,6 @@ async function adduser (req,res){
     }
 }
 
-
 const bcrypt = require('bcrypt');
 
 async function login(req, res) {

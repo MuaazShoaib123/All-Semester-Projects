@@ -100,7 +100,23 @@ body {
 .nav-item:hover {
     background-color: lightgreen;
 }
+.back-button {
+    display: inline-block;
+    margin-bottom: 20px;
+    text-decoration: none;
+    color: blue;
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    margin-right: 30px;
+}
 
+.back-button i {
+    margin-right: 5px;
+}
+.back-button:hover {
+    background-color: lightblue;
+}
 @keyframes onloadAnim {
     from {
         transform: translateY(-88%);
