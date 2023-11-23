@@ -6,4 +6,8 @@ router.post('/addusers',userscontroller.adduser);
 router.post('/loginuser',userscontroller.login);
 router.post('/getid',userscontroller.getuserid);
 router.post('/addbudget',budgetcontroller.addbudget);
+router.post('/getuserbudget',budgetcontroller.getuserbudget);
+router.post('/updateamount',budgetcontroller.update_amount);
+router.post('/deletebudget',budgetcontroller.delete_budget);
+
 module.exports = router;

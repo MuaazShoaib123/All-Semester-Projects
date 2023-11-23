@@ -10,7 +10,7 @@ async function addbudget (req,res){
         if (existingCategory) {
             return res.status(400).json({ error: 'Category already exists. Please update or delete first.' });
         }
-        
+
             const budget = await Budget.create(req.body);
             res.status(201).json(budget);
         
@@ -19,26 +19,78 @@ async function addbudget (req,res){
         res.status(500).json({ error: 'Internal Server Error' });
     }
 }
+async function getuserbudget(req, res) {
+    const { UserId } = req.body;
+    
+    try {
+        const budgets = await Budget.find({ UserId });
+
+        if (budgets && budgets.length > 0) {
+            // Extract relevant data from budgets
+            const budgetData = budgets.map(budget => ({
+                BudgetCategory: budget.BudgetCategory,
+                Amount: budget.Amount
+            }));
+
+            return res.json(budgetData);
+        } else {
+            return res.status(404).json({ error: "Budget data not found for the user." });
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
+async function update_amount(req, res) {
+    const { UserId, BudgetCategory, Amount } = req.body;
+
+    try {
+        // Find the budget record to update
+        const budget = await Budget.findOne({ UserId ,BudgetCategory});
+
+        if (!budget) {
+            return res.status(404).json({ error: 'Budget not found' });
+        }
+        
+        else{
+        // Update the amount in the budget record
+        budget.Amount = Amount;
+
+        // Save the updated budget record
+        await budget.save();
+
+        // Send a success response
+        res.json({ message: 'Amount updated successfully' });
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
+async function delete_budget(req, res) {
+    const { UserId, BudgetCategory } = req.body;
+
+    try {
+        // Find the budget record to delete
+        const budget = await Budget.findOneAndDelete({ UserId, BudgetCategory });
+
+        if (!budget) {
+            return res.status(404).json({ error: 'Budget not found' });
+        }
+        // Send a success response
+        res.json({ message: 'Budget deleted successfully' });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
 
 
-// async function check_category (req,res){
-   
-//     const {UserId,Category} = req.body;
-  
-//     try {
-//       const check = await Budget.findOne({ UserId });
-  
-//       if (Category != check.BudgetCategory) {
-          
-//           return res.json(Category)
-//       } else {
-//           return res.status(401).json({ error: "Budget Category all ready added! You should update or delete first..!" });
-//       }
-//   } catch (error) {
-//       res.status(500).json({ error: 'Internal Server Error' });
-//   }
-  
-//   }
 module.exports = {
     addbudget,
+    getuserbudget,
+    update_amount,
+    delete_budget,
 };

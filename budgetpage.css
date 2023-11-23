@@ -49,7 +49,36 @@ body {
     background-color: lightgreen;
 }
 
+.table-container {
+    text-align: center;
+    margin-top: 100px;
+}
 
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+}
+
+thead {
+    background-color: lightgreen;
+}
+tbody{
+    background-color: gainsboro;
+}
+th, td {
+    border: 1px solid black;
+    text-align: left;
+    padding: 8px;
+}
+
+th {
+    font-weight: bold;
+}
+.btn-small {
+    padding: 5px 10px;
+    font-size: 12px;
+}
 @keyframes onloadAnim {
     from {
         transform: translateY(-88%);
