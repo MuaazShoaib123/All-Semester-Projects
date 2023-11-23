@@ -29,11 +29,11 @@
                 <i class="fas fa-home"></i>
                 <p>Home</p>
             </a>
-            <a href="budgetpage.html" class="nav-item" onclick="getUserId(event)">
+            <a href="budgetpage.html" class="nav-item" onclick="getUserId(event,1)">
                 <i class="fas fa-chart-pie" ></i>
                 <p>Plan Budget</p>
             </a>
-            <a href="#" class="nav-item">
+            <a href="expensepage.html" class="nav-item" onclick="getUserId(event,2)">
                 <i class="fas fa-dollar-sign"></i>
                 <p>Your Expenses</p>
             </a>
@@ -62,7 +62,7 @@
         const firstName = names[0];
         const lastName = names.slice(1).join(' ');
         
-        async function getUserId(event) {
+        async function getUserId(event,variable) {
             
             event.preventDefault();
             const userData = {
@@ -83,7 +83,12 @@
                     const userId = await response.json();
                     console.log(userId)
                     localStorage.setItem('UserId', JSON.stringify(userId))
+                    if(variable == 1){
                     window.location.href = 'budgetpage.html';
+                    }
+                    if(variable == 2){
+                        window.location.href = 'expensepage.html';
+                    }
                 } else {
                     const error = await response.json();
                     console.error(error);

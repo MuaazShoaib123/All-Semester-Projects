@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+    <link rel="stylesheet" type="text/css" href="addexpense.css">
+
+</head>
+
+<body>
+    <div class="formDiv">
+        <div class="form-container">
+            <h1 class="title"> Add Expenses </h1>
+            <form id="signupForm" action="#" onsubmit="return submitForm(event)">
+                <div class="input-group" id = "category">
+                    <i class="fas fa-lightbulb"></i>
+                    <p > Category :
+                        <select>
+                            <option> --Select an Option </option>
+                            <option> Food </option>
+                            <option> Utility Bills </option>
+                            <option> Entertainment </option>
+                            <option> Rent </option>
+                            <option> Miscallenaous Uses </option>
+                        </select>
+                    </p>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="description" placeholder="Description" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="amount" placeholder="Amount" required>
+                </div>
+                <div class="btn-container">
+                    <button type="submit" class="btn" >Add </button>
+                </div>
+                <a href="expensepage.html" class="create-account-link"> Go Back</a>
+            </form>
+        </div>
+       
+    </div>
+
+    <script src="https://kit.fontawesome.com/4077c6ef6a.js" crossorigin="anonymous"></script>
+    <script>
+
+const categoryDropdown = document.getElementById('category');  
+        
+    async function submitForm(event) {
+         
+        event.preventDefault();
+        const selectedOption = categoryDropdown.querySelector('select').options[categoryDropdown.querySelector('select').selectedIndex].value;
+
+        const amount = document.getElementById('amount').value;
+        const userId = localStorage.getItem('UserId');
+
+        if (!validateInteger(amount)) {
+            alert('Please enter a valid integer for the amount.');
+            return false;
+        }
+
+        else if (selectedOption === '--Select an Option') {
+            alert('Please select a valid option');
+            return false;
+
+        }
+        
+
+         else {
+
+            const userData = {
+                UserId: userId,
+                BudgetCategory: selectedOption,
+                Amount: amount
+            };
+
+            try {
+                const response = await fetch('http://localhost:3005/api/addbudget', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userData)
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    alert('Budget added successfully.');
+                    window.location.href = 'budgetpage.html';
+                } else {
+                    
+                    alert("Budget category already exists you can only update or delete this category..!");
+                }
+            }
+            catch (error) {
+                console.error('Error:', error);
+            }
+    }
+    return false; // Prevent form submission
+            
+}
+
+  function validateInteger(value) {
+    // Check if the value is an integer
+    return /^-?\d+$/.test(value);
+  }
+
+  
+    </script>
+</body>
+
+</html>
