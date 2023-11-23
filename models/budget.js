@@ -2,8 +2,9 @@ const mongoose = require('mongoose')
 
 const budgetSchema = new mongoose.Schema({
     UserId : String,
-    BudgetCategory : String,
-    Amount : Number
+    Category : String,
+    Amount : Number,
+    oldamount : Number
 },
 {timestamps : true}
 );
