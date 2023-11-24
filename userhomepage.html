@@ -29,15 +29,15 @@
                 <i class="fas fa-home"></i>
                 <p>Home</p>
             </a>
-            <a href="budgetpage.html" class="nav-item" onclick="getUserId(event,1)">
+            <a href="budgetpage.html" class="nav-item" >
                 <i class="fas fa-chart-pie" ></i>
                 <p>Plan Budget</p>
             </a>
-            <a href="expensepage.html" class="nav-item" onclick="getUserId(event,2)">
+            <a href="expensepage.html" class="nav-item" >
                 <i class="fas fa-dollar-sign"></i>
                 <p>Your Expenses</p>
             </a>
-            <a href="reminderpage.html" class="nav-item" onclick="getUserId(event,3)">
+            <a href="reminderpage.html" class="nav-item">
                 <i class="fas fa-bell"></i>
                 <p>Reminders</p>
             </a>
@@ -54,6 +54,16 @@
 
     <script src="https://kit.fontawesome.com/4077c6ef6a.js" crossorigin="anonymous"></script>
     <script>
+        
+        document.addEventListener("DOMContentLoaded", function () {
+            
+           
+            // Fetch budget data when the page is loaded
+            getUserId(event);
+            const userid = localStorage.getItem('UserId');
+            Checkdatetime(userid)
+        });
+        // Get the current date
 
         const userName = localStorage.getItem('Name');
         const nameWithoutQuotes = userName.replace(/"/g, '');
@@ -61,8 +71,53 @@
         const names = nameWithoutQuotes.split(' ');
         const firstName = names[0];
         const lastName = names.slice(1).join(' ');
-        
-        async function getUserId(event,variable) {
+        const currentDate = new Date();
+       let time = 1;
+// Extract year, month, and day
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth() + 1; // Month is zero-based, so we add 1
+      const day = currentDate.getDate();
+     const date = year + "-" + month + "-" + day;
+// Get the current time
+//    const currentDateTime = new Date();
+// // Extract hours, minutes, and seconds
+//   const hours = currentDateTime.getHours();
+//   const minutes = currentDateTime.getMinutes();
+//  if(hours >= 12){
+
+//      time = hours + ":" + minutes + "PM";
+//  }
+//  if(hours < 12){
+
+//   time = hours + ":" + minutes + "AM";
+// }
+
+function Checkdatetime(userId) {
+        // Make a fetch request to check the budget
+        fetch('http://localhost:3005/api/checkdateandtime', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ UserId: userId, Date:date }),
+        })
+        .then(response => response.json())
+
+        .then(data => {
+           
+            if (data.messages && data.messages.length > 0) {
+        // If there are messages, show them as alerts
+        data.messages.forEach(message => {
+            alert(message);
+        });
+    }
+            // You can display the message in the UI as needed
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+        async function getUserId(event) {
             
             event.preventDefault();
             const userData = {
@@ -81,17 +136,8 @@
 
                 if (response.ok) {
                     const userId = await response.json();
-                    console.log(userId)
                     localStorage.setItem('UserId', JSON.stringify(userId))
-                    if(variable == 1){
-                    window.location.href = 'budgetpage.html';
-                    }
-                    if(variable == 2){
-                        window.location.href = 'expensepage.html';
-                    }
-                    if(variable == 3){
-                        window.location.href = 'reminderpage.html';
-                    }
+                   
                 } else {
                     const error = await response.json();
                     console.error(error);

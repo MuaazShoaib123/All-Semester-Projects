@@ -22,4 +22,5 @@ router.post('/updatedate',remindercontroller.update_date);
 router.post('/updatetime',remindercontroller.update_time);
 router.post('/deletereminder',remindercontroller.delete_reminder);
 router.post('/getuserreminder',remindercontroller.getuserreminder);
+router.post('/checkdateandtime',remindercontroller.checkdateandtime);
 module.exports = router;

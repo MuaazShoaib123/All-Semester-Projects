@@ -88,21 +88,23 @@ async function delete_budget(req, res) {
     }
 }
 
-async function checkBudget(req,res) {
+async function checkBudget(req, res) {
     const { UserId } = req.body;
 
     try {
-       
-        const budget = await Budget.findOne({ UserId: UserId });
+        // Find all budget entries for the user
+        const budgets = await Budget.find({ UserId: UserId });
 
-        if ( budget.Amount === 0) {
-            
-            res.json({ message: `You are out of your budget for the ${budget.Category} category.` });
-        }
-        // No budget or budget is not 0
+        // Check if any of the budgets have an amount of 0
+        const hasZeroBudget = budgets.some(budget => budget.Amount === 0);
+
+        if (hasZeroBudget) {
+            // If any budget has an amount of 0, send a message
+            res.json({ message: `You are out of your budget for one or more categories.` });
+        } 
     } catch (error) {
         console.error('Error:', error);
-        throw new Error('Internal Server Error');
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 }
 

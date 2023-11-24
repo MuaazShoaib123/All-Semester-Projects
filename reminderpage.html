@@ -178,15 +178,20 @@
             }
         
             if(result == "Date"){
-
+                
+                const currentDate = new Date();
                 const date = window.prompt('Update Date:', '');
+                const year = currentDate.getFullYear();
+                const month = currentDate.getMonth() + 1; // Month is zero-based, so we add 1
+                const day = currentDate.getDate();
+                const date2 = year + "-" + month + "-" + day;
                 if(date != null){
                 fetch('http://localhost:3005/api/updatedate', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({ UserId: userId, Category: Category, Date:date }),
+                        body: JSON.stringify({ UserId: userId, Category: Category, Date:date,date2}),
                     })
                         .then(response => {
                             if (!response.ok) {

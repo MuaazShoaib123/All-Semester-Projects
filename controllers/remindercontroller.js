@@ -80,7 +80,8 @@ async function update_description(req, res) {
     }
 }
 async function update_date(req, res) {
-    const { UserId, Category, Date } = req.body;
+
+    const { UserId, Category, Date, date2} = req.body;
  
     try {
        
@@ -92,6 +93,14 @@ async function update_date(req, res) {
         else{
         // Update the amount in the budget record
         reminder.Date = Date;
+        if(reminder.Date != date2 ){
+
+            reminder.Status = "Inactive";
+        }
+        if(reminder.Date == date2 ){
+
+            reminder.Status = "Active";
+        }
         await reminder.save();
         // Send a success response
         res.json({ message: 'Reminder Updated Successfully' });
@@ -123,6 +132,31 @@ async function update_time(req, res) {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 }
+async function checkdateandtime(req, res) {
+    const { UserId , Date } = req.body;
+    
+    try {
+        const reminders = await Reminder.find({ UserId, Date });
+        if (reminders.length > 0) {
+            // If there are reminders with the same UserId, Date, and Time
+            for (const reminder of reminders) {
+                reminder.Status = "Active";
+                await reminder.save();
+            }
+            const messages = reminders.map(reminder => `Reminder: ${reminder.Description}.`);
+            res.json({ messages });
+        }
+         else {
+            // If there are no reminders with the same UserId, Date, and Time
+            res.json({ message: 'No matching reminders found.' });
+        }
+         
+        } 
+     catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
 module.exports = {
     addreminder,
     getuserreminder,
@@ -130,4 +164,5 @@ module.exports = {
     update_date,
     update_time,
     delete_reminder,
+    checkdateandtime,
 };
