@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+    <link rel="stylesheet" type="text/css" href="recomendationpage.css">
+</head>
+
+<body>
+
+    <div class="form-container">
+        <h1> Recomendations</h1>
+
+        <div class="nav">
+            <a href="recomendationpage.html" class="nav-item">
+                <div class="nav-item">
+                    <p> Review Recomendations</p>
+                </div>
+            </a>
+            <!-- Add the Back option here -->
+            <div class="nav-item">
+                <a href="userhomepage.html" class="nav-item">
+                    <p> Back</p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="table-container">
+        <table id="budgetTable">
+            <thead>
+                <tr>
+                    <th> Category</th>
+                    <th> Amount</th>
+                    <th> Recomendation</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- Your table rows will go here -->
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+    <script src="https://kit.fontawesome.com/4077c6ef6a.js" crossorigin="anonymous"> </script>
+    <script>
+
+        const userId = localStorage.getItem('UserId');
+
+    document.addEventListener("DOMContentLoaded", function () {
+            
+            // Fetch budget data when the page is loaded
+           fetchBudgetData();
+        });
+       
+        function fetchBudgetData() {
+            
+            // Make a fetch request to your server to get budget data
+            fetch('http://localhost:3005/api/getuserbudget', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                // Pass the user ID here
+                body: JSON.stringify({ UserId: userId }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Call a function to update the table with the fetched data
+                updateTable(data);
+                
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function updateTable(data) {
+            // Get the table body element
+            const tableBody = document.getElementById('tableBody');
+
+            // Clear existing rows
+            tableBody.innerHTML = '';
+            // Loop through the fetched data and create rows
+            data.forEach(budget => {
+                const row = document.createElement('tr');
+
+                // Create cells for Budget Category and Amount
+                const categoryCell = document.createElement('td');
+                categoryCell.textContent = budget.Category;
+                
+                const amountCell = document.createElement('td');
+                amountCell.textContent = budget.Amount;
+
+                // Create a cell for Page Details with Edit and Delete buttons
+                const detailsCell = document.createElement('td');
+                if(budget.category == "Rent"){
+                    console.log("Muaaz");
+                }
+                const recomendation = get_recomendations(budget.Category,budget.Amount);
+                detailsCell.textContent = recomendation;
+                // Append cells to the row
+                row.appendChild(categoryCell);
+                row.appendChild(amountCell);
+                row.appendChild(detailsCell);
+
+                // Append the row to the table body
+                tableBody.appendChild(row);
+            });
+        }
+        
+        function get_recomendations(category,amount){
+           
+            const HIGH_BUDGET_THRESHOLD = 4000;
+           const MODERATE_BUDGET_THRESHOLD = 2700;
+            if(category == "Food"){
+               
+                if(amount >= HIGH_BUDGET_THRESHOLD){
+
+                    return "You have a healthy budget. Consider treating yourself to a nice dinner.";
+                }
+                if(amount <HIGH_BUDGET_THRESHOLD && amount >= MODERATE_BUDGET_THRESHOLD){
+
+                   return "You have a moderate budget. Be mindful of your spending."
+                }
+                if(amount <MODERATE_BUDGET_THRESHOLD && amount > 500){
+
+                    return "Your budget is limited. Consider cutting back on non-essential expenses.";
+                }
+                if(amount == 0){
+
+                    return "No budget mate. Sorry no recomendation...!";
+                }
+            }
+            if(category == "Entertainment"){
+               
+               if(amount >= HIGH_BUDGET_THRESHOLD){
+
+                   return "You have a healthy budget. Watch any new concert out there on any entertainment thing.";
+               }
+               if(amount <HIGH_BUDGET_THRESHOLD && amount >= MODERATE_BUDGET_THRESHOLD){
+
+                  return "You have a moderate budget. Be mindful of your spending."
+               }
+               if(amount <MODERATE_BUDGET_THRESHOLD && amount > 500){
+
+                   return "Your budget is limited. Consider cutting back on non-essential expenses.";
+               }
+               if(amount == 0){
+
+                   return "No budget mate. Sorry no recomendation...!";
+               }
+           }
+           if(category == "Utility Bills"){
+               
+               if(amount >= HIGH_BUDGET_THRESHOLD){
+
+                   return "You have a healthy budget. You can cover your bills easily.";
+               }
+               if(amount <HIGH_BUDGET_THRESHOLD && amount >= MODERATE_BUDGET_THRESHOLD){
+
+                  return "Given your moderate budget, it's essential to prioritize utility bills. Ensure timely payments to avoid any disruptions in services."
+               }
+               if(amount <MODERATE_BUDGET_THRESHOLD && amount > 500){
+
+                   return "With a limited budget, prioritize essential expenses like utility bills. Look for ways to save on energy costs, such as turning off lights when not in use."
+               }
+               if(amount == 0){
+
+                   return "No budget mate. Sorry no recomendation...!";
+               }
+           }
+           if(category == "Miscallenaous Uses"){
+               
+               if(amount >= HIGH_BUDGET_THRESHOLD){
+
+                   return "You have a healthy budget. You can spend then on your hobbies or you can gift someone.";
+               }
+               if(amount <HIGH_BUDGET_THRESHOLD && amount >= MODERATE_BUDGET_THRESHOLD){
+
+                  return "Given your moderate budget, Regularly review and categorize miscellaneous spending to identify areas for optimization and ensure you stay within budget.."
+               }
+               if(amount <MODERATE_BUDGET_THRESHOLD && amount > 500){
+
+                   return "With a limited budget, With a limited budget, set strict limits for miscellaneous expenses. Prioritize essential spending over non-essential items."
+               }
+               if(amount == 0){
+
+                   return "No budget mate. Sorry no recomendation...!";
+               }
+           }
+           if(category == "Rent"){
+               
+            const HIGH_BUDGET_THRESHOLD1 = 10000;
+           const MODERATE_BUDGET_THRESHOLD1 = 4450;
+               if(amount >= HIGH_BUDGET_THRESHOLD1){
+
+                   return "You have a healthy budget. You can rent a car if you want to go somewhere or you can buy a dress for a wedding.";
+               }
+               if(amount <HIGH_BUDGET_THRESHOLD1 && amount >= MODERATE_BUDGET_THRESHOLD1){
+
+                  return "Given your moderate budget, it's essential to prioritize expenses."
+               }
+               if(amount <MODERATE_BUDGET_THRESHOLD1 && amount > 500){
+
+                   return "With a limited budget, only focuss on main rent ignore unimportant rents."
+               }
+               if(amount == 0){
+
+                   return "No budget mate. Sorry no recomendation...!";
+               }
+           }
+           
+        }
+    
+    </script>
+</body>
+
+</html>
