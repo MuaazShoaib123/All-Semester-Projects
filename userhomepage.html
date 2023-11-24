@@ -37,7 +37,7 @@
                 <i class="fas fa-dollar-sign"></i>
                 <p>Your Expenses</p>
             </a>
-            <a href="#" class="nav-item">
+            <a href="reminderpage.html" class="nav-item" onclick="getUserId(event,3)">
                 <i class="fas fa-bell"></i>
                 <p>Reminders</p>
             </a>
@@ -88,6 +88,9 @@
                     }
                     if(variable == 2){
                         window.location.href = 'expensepage.html';
+                    }
+                    if(variable == 3){
+                        window.location.href = 'reminderpage.html';
                     }
                 } else {
                     const error = await response.json();
