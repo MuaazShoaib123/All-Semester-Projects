@@ -1,13 +1,13 @@
-const Reminder = require ('../models/reminders')
+const Reminder = require('../models/reminders')
 
-async function addreminder (req,res){
+async function addreminder(req, res) {
 
 
     try {
 
-            const reminder = await Reminder.create(req.body);
-            res.status(201).json(reminder);
-        
+        const reminder = await Reminder.create(req.body);
+        res.status(201).json(reminder);
+
     } catch (error) {
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -16,7 +16,7 @@ async function addreminder (req,res){
 
 async function getuserreminder(req, res) {
     const { UserId } = req.body;
-    
+
     try {
         const reminder = await Reminder.find({ UserId });
 
@@ -25,9 +25,9 @@ async function getuserreminder(req, res) {
             const reminderData = reminder.map(reminder => ({
 
                 Category: reminder.Category,
-                Description : reminder.Description,
+                Description: reminder.Description,
                 Date: reminder.Date,
-                Time : reminder.Time,
+                Time: reminder.Time,
                 Status: reminder.Status
             }));
 
@@ -44,9 +44,9 @@ async function delete_reminder(req, res) {
     const { UserId, Category } = req.body;
 
     try {
-        
+
         const reminder = await Reminder.findOneAndDelete({ UserId, Category });
-        
+
         if (!reminder) {
             return res.status(404).json({ error: 'Reminder not found' });
         }
@@ -59,20 +59,20 @@ async function delete_reminder(req, res) {
 }
 async function update_description(req, res) {
     const { UserId, Category, Description } = req.body;
- 
+
     try {
-       
-        const reminder = await Reminder.findOne({UserId,Category});
+
+        const reminder = await Reminder.findOne({ UserId, Category });
         if (!reminder) {
             return res.status(404).json({ error: 'Reminder not found' });
         }
-        
-        else{
-        // Update the amount in the budget record
-        reminder.Description = Description;
-        await reminder.save();
-        // Send a success response
-        res.json({ message: 'Reminder Updated Successfully' });
+
+        else {
+            // Update the amount in the budget record
+            reminder.Description = Description;
+            await reminder.save();
+            // Send a success response
+            res.json({ message: 'Reminder Updated Successfully' });
         }
     } catch (error) {
         console.error('Error:', error);
@@ -81,29 +81,29 @@ async function update_description(req, res) {
 }
 async function update_date(req, res) {
 
-    const { UserId, Category, Date, date2} = req.body;
- 
+    const { UserId, Category, Date, date2 } = req.body;
+
     try {
-       
-        const reminder = await Reminder.findOne({UserId,Category});
+
+        const reminder = await Reminder.findOne({ UserId, Category });
         if (!reminder) {
             return res.status(404).json({ error: 'Reminder not found' });
         }
-        
-        else{
-        // Update the amount in the budget record
-        reminder.Date = Date;
-        if(reminder.Date != date2 ){
 
-            reminder.Status = "Inactive";
-        }
-        if(reminder.Date == date2 ){
+        else {
+            // Update the amount in the budget record
+            reminder.Date = Date;
+            if (reminder.Date != date2) {
 
-            reminder.Status = "Active";
-        }
-        await reminder.save();
-        // Send a success response
-        res.json({ message: 'Reminder Updated Successfully' });
+                reminder.Status = "Inactive";
+            }
+            if (reminder.Date == date2) {
+
+                reminder.Status = "Active";
+            }
+            await reminder.save();
+            // Send a success response
+            res.json({ message: 'Reminder Updated Successfully' });
         }
     } catch (error) {
         console.error('Error:', error);
@@ -112,20 +112,20 @@ async function update_date(req, res) {
 }
 async function update_time(req, res) {
     const { UserId, Category, Time } = req.body;
- 
+
     try {
-       
-        const reminder = await Reminder.findOne({UserId,Category});
+
+        const reminder = await Reminder.findOne({ UserId, Category });
         if (!reminder) {
             return res.status(404).json({ error: 'Reminder not found' });
         }
-        
-        else{
-        // Update the amount in the budget record
-        reminder.Time = Time;
-        await reminder.save();
-        // Send a success response
-        res.json({ message: 'Reminder Updated Successfully' });
+
+        else {
+            // Update the amount in the budget record
+            reminder.Time = Time;
+            await reminder.save();
+            // Send a success response
+            res.json({ message: 'Reminder Updated Successfully' });
         }
     } catch (error) {
         console.error('Error:', error);
@@ -133,8 +133,8 @@ async function update_time(req, res) {
     }
 }
 async function checkdateandtime(req, res) {
-    const { UserId , Date } = req.body;
-    
+    const { UserId, Date } = req.body;
+
     try {
         const reminders = await Reminder.find({ UserId, Date });
         if (reminders.length > 0) {
@@ -146,13 +146,13 @@ async function checkdateandtime(req, res) {
             const messages = reminders.map(reminder => `Reminder: ${reminder.Description}.`);
             res.json({ messages });
         }
-         else {
+        else {
             // If there are no reminders with the same UserId, Date, and Time
             res.json({ message: 'No matching reminders found.' });
         }
-         
-        } 
-     catch (error) {
+
+    }
+    catch (error) {
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }

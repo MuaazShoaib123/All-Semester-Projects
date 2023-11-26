@@ -3,7 +3,8 @@
 body {
     background: url('background.jpeg') no-repeat center center fixed;
     background-size: cover;
-    margin: 0; /* Add this line to remove default body margin */
+    margin: 0;
+    /* Add this line to remove default body margin */
 }
 
 .form-container {
@@ -12,26 +13,36 @@ body {
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-left: 15px solid green; /* Adjust the color as needed */
-    border-top: 5px solid green; /* Adjust the color as needed */
-    border-right: 15px solid green; /* Adjust the color as needed */
-    border-bottom: 5px solid green; /* Adjust the color as needed */
-    text-align: center; /* Center-align the title */
+    border-left: 15px solid green;
+    /* Adjust the color as needed */
+    border-top: 5px solid green;
+    /* Adjust the color as needed */
+    border-right: 15px solid green;
+    /* Adjust the color as needed */
+    border-bottom: 5px solid green;
+    /* Adjust the color as needed */
+    text-align: center;
+    /* Center-align the title */
     position: relative;
 }
 
 .title {
     font-family: 'Poppins', sans-serif;
-    margin-top: 0; /* Remove default margin for the title */
+    margin-top: 0;
+    /* Remove default margin for the title */
 }
 
 .line-after-container {
     background-color: rgba(255, 255, 255, 0.8);
     padding: 20px;
-    border-left: 15px solid green; /* Adjust the color as needed */
-    border-top: 5px solid green; /* Adjust the color as needed */
-    border-right: 15px solid green; /* Adjust the color as needed */
-    border-bottom: 5px solid green; /* Adjust the color as needed */
+    border-left: 15px solid green;
+    /* Adjust the color as needed */
+    border-top: 5px solid green;
+    /* Adjust the color as needed */
+    border-right: 15px solid green;
+    /* Adjust the color as needed */
+    border-bottom: 5px solid green;
+    /* Adjust the color as needed */
     width: 300px;
     height: 830px;
 }
@@ -39,11 +50,16 @@ body {
 .last-container {
     background-color: rgba(255, 255, 255, 0.8);
     padding: 20px;
-    border-left: 15px solid green; /* Adjust the color as needed */
-    border-top: 5px solid green; /* Adjust the color as needed */
-    border-right: 15px solid green; /* Adjust the color as needed */
-    border-bottom: 5px solid green; /* Adjust the color as needed */
-    margin-top: 3px; /* Adjust this value to control the space between containers */
+    border-left: 15px solid green;
+    /* Adjust the color as needed */
+    border-top: 5px solid green;
+    /* Adjust the color as needed */
+    border-right: 15px solid green;
+    /* Adjust the color as needed */
+    border-bottom: 5px solid green;
+    /* Adjust the color as needed */
+    margin-top: 3px;
+    /* Adjust this value to control the space between containers */
     padding-bottom: 45px;
     padding-left: 20px;
     width: 1350px;
@@ -52,12 +68,16 @@ body {
 }
 
 .line-after-container img {
-    width: 70%; /* Adjust the width as needed */
-    height: 11%; /* Adjust the height as needed */
-    object-fit: cover; /* Adjust the object-fit property as needed (e.g., 'cover', 'contain') */
+    width: 70%;
+    /* Adjust the width as needed */
+    height: 11%;
+    /* Adjust the height as needed */
+    object-fit: cover;
+    /* Adjust the object-fit property as needed (e.g., 'cover', 'contain') */
     margin-left: 30px;
 }
-.active{
+
+.active {
 
     margin-top: 10px;
     display: flex;
@@ -70,6 +90,7 @@ body {
     font-weight: bold;
     margin-right: 30px;
 }
+
 .nav {
     display: flex;
     flex-direction: column;
@@ -100,6 +121,7 @@ body {
 .nav-item:hover {
     background-color: lightgreen;
 }
+
 .back-button {
     display: inline-block;
     margin-bottom: 20px;
@@ -114,13 +136,16 @@ body {
 .back-button i {
     margin-right: 5px;
 }
+
 .back-button:hover {
     background-color: lightblue;
 }
+
 @keyframes onloadAnim {
     from {
         transform: translateY(-88%);
     }
+
     to {
         transform: translateY(0);
     }

@@ -14,9 +14,9 @@
         <div class="form-container">
             <h1 class="title"> Add Expenses </h1>
             <form id="signupForm" action="#" onsubmit="return submitForm(event)">
-                <div class="input-group" id = "category">
+                <div class="input-group" id="category">
                     <i class="fas fa-lightbulb"></i>
-                    <p > Category :
+                    <p> Category :
                         <select>
                             <option> --Select an Option </option>
                             <option> Food </option>
@@ -36,75 +36,75 @@
                     <input type="text" id="amount" placeholder="Amount" required>
                 </div>
                 <div class="btn-container">
-                    <button type="submit" class="btn" >Add </button>
+                    <button type="submit" class="btn">Add </button>
                 </div>
                 <a href="expensepage.html" class="create-account-link"> Go Back</a>
             </form>
         </div>
-       
+
     </div>
 
     <script src="https://kit.fontawesome.com/4077c6ef6a.js" crossorigin="anonymous"></script>
     <script>
 
-const categoryDropdown = document.getElementById('category');  
-const userId = localStorage.getItem('UserId');
+        const categoryDropdown = document.getElementById('category');
+        const userId = localStorage.getItem('UserId');
 
-async function submitForm(event) {
-    event.preventDefault();
-    const selectedOption = categoryDropdown.querySelector('select').options[categoryDropdown.querySelector('select').selectedIndex].value;
-    const amount = document.getElementById('amount').value;
-    const userId = localStorage.getItem('UserId');
-    const description = document.getElementById('description').value;
+        async function submitForm(event) {
+            event.preventDefault();
+            const selectedOption = categoryDropdown.querySelector('select').options[categoryDropdown.querySelector('select').selectedIndex].value;
+            const amount = document.getElementById('amount').value;
+            const userId = localStorage.getItem('UserId');
+            const description = document.getElementById('description').value;
 
-    if (!validateInteger(amount)) {
-        alert('Please enter a valid integer for the amount.');
-        return false;
-    } else if (selectedOption === '--Select an Option') {
-        alert('Please select a valid option');
-        return false;
-    } else {
-        const userData = {
-            UserId: userId,
-            Category: selectedOption,
-            Description: description,
-            Amount: amount
-        };
-       const Check ={
-
-        UserId: userId,
-        Category: selectedOption,
-       }
-        try {
-            const response = await fetch('http://localhost:3005/api/addexpense', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(userData)
-            });
-
-            if (response.ok) {
-                const result = await response.json();
-                alert('Expense added successfully.');
-                window.location.href = 'expensepage.html';
+            if (!validateInteger(amount)) {
+                alert('Please enter a valid integer for the amount.');
+                return false;
+            } else if (selectedOption === '--Select an Option') {
+                alert('Please select a valid option');
+                return false;
             } else {
-                alert('Category not added to your Budget. First add that Category in the Budget Page');
+                const userData = {
+                    UserId: userId,
+                    Category: selectedOption,
+                    Description: description,
+                    Amount: amount
+                };
+                const Check = {
+
+                    UserId: userId,
+                    Category: selectedOption,
+                }
+                try {
+                    const response = await fetch('http://localhost:3005/api/addexpense', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(userData)
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        alert('Expense added successfully.');
+                        window.location.href = 'expensepage.html';
+                    } else {
+                        alert('Category not added to your Budget. First add that Category in the Budget Page');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                }
             }
-        } catch (error) {
-            console.error('Error:', error);
+            return false; // Prevent form submission
         }
-    }
-    return false; // Prevent form submission
-}
 
 
-  function validateInteger(value) {
-    // Check if the value is an integer
-    return /^-?\d+$/.test(value);
-  }
- 
-  
+        function validateInteger(value) {
+            // Check if the value is an integer
+            return /^-?\d+$/.test(value);
+        }
+
+
     </script>
 </body>
 

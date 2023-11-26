@@ -1,11 +1,11 @@
 const mongoose = require('mongoose')
 
 const budgetSchema = new mongoose.Schema({
-    UserId : String,
-    Category : String,
-    Amount : Number,
-    oldamount : Number
+    UserId: String,
+    Category: String,
+    Amount: Number,
+    oldamount: Number
 },
-{timestamps : true}
+    { timestamps: true }
 );
-module.exports= mongoose.model('Budget',budgetSchema)
+module.exports = mongoose.model('Budget', budgetSchema)

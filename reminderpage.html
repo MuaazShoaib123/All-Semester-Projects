@@ -147,16 +147,16 @@
 
 
             const result = window.prompt('Update Description,Date,Time ?:', '');
-            if(result == "Description"){
+            if (result == "Description") {
 
                 const description = window.prompt('Update Description:', '');
-                if(description != null){
-                fetch('http://localhost:3005/api/updatedescription', {
+                if (description != null) {
+                    fetch('http://localhost:3005/api/updatedescription', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({ UserId: userId, Category: Category, Description:description }),
+                        body: JSON.stringify({ UserId: userId, Category: Category, Description: description }),
                     })
                         .then(response => {
                             if (!response.ok) {
@@ -174,24 +174,24 @@
                             console.error('Error:', error);
                             alert('Error updating. Please try again.');
                         });
-                    }
+                }
             }
-        
-            if(result == "Date"){
-                
+
+            if (result == "Date") {
+
                 const currentDate = new Date();
                 const date = window.prompt('Update Date:', '');
                 const year = currentDate.getFullYear();
                 const month = currentDate.getMonth() + 1; // Month is zero-based, so we add 1
                 const day = currentDate.getDate();
                 const date2 = year + "-" + month + "-" + day;
-                if(date != null){
-                fetch('http://localhost:3005/api/updatedate', {
+                if (date != null) {
+                    fetch('http://localhost:3005/api/updatedate', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({ UserId: userId, Category: Category, Date:date,date2}),
+                        body: JSON.stringify({ UserId: userId, Category: Category, Date: date, date2 }),
                     })
                         .then(response => {
                             if (!response.ok) {
@@ -208,71 +208,71 @@
                         .catch(error => {
                             console.error('Error:', error);
                             alert('Error updating. Please try again.');
-                        });
-                    }
-                }
-            
-            if(result == "Time"){
-
-                const time = window.prompt('Update Time:', '');
-                if(time != null){
-                fetch('http://localhost:3005/api/updatetime', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ UserId: userId, Category: Category, Time:time }),
-                    })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Network response was not ok');
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            // Assuming the server returns a success message
-                            alert('Updated Successfully.');
-                            // Refresh the table data after updating
-                            fetchReminderData();
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            alert('Error updating. Please try again.');
-                        });
-                    }
-                }
-            
-
-                }    // Make a fetch request to update the amount
-
-            function deleteReminder(Category) {
-                // Similar to edit, make a fetch request to delete the budget
-                if (confirm('Are you sure you want to delete this budget?')) {
-                    fetch('http://localhost:3005/api/deletereminder', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ UserId: userId, Category: Category }),
-                    })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Network response was not ok');
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            // Assuming the server returns a success message
-                            alert('Reminder deleted successfully.');
-                            // Refresh the table data after deleting
-                            fetchReminderData();
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            alert('Error deleting expense. Please try again.');
                         });
                 }
             }
+
+            if (result == "Time") {
+
+                const time = window.prompt('Update Time:', '');
+                if (time != null) {
+                    fetch('http://localhost:3005/api/updatetime', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ UserId: userId, Category: Category, Time: time }),
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            // Assuming the server returns a success message
+                            alert('Updated Successfully.');
+                            // Refresh the table data after updating
+                            fetchReminderData();
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Error updating. Please try again.');
+                        });
+                }
+            }
+
+
+        }    // Make a fetch request to update the amount
+
+        function deleteReminder(Category) {
+            // Similar to edit, make a fetch request to delete the budget
+            if (confirm('Are you sure you want to delete this budget?')) {
+                fetch('http://localhost:3005/api/deletereminder', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ UserId: userId, Category: Category }),
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Assuming the server returns a success message
+                        alert('Reminder deleted successfully.');
+                        // Refresh the table data after deleting
+                        fetchReminderData();
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Error deleting expense. Please try again.');
+                    });
+            }
+        }
     </script>
 </body>
 

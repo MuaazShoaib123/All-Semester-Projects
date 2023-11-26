@@ -1,8 +1,8 @@
-const Budget = require ('../models/budget')
+const Budget = require('../models/budget')
 
-async function addbudget (req,res){
+async function addbudget(req, res) {
 
-    const { UserId, Category, Amount, oldamount} = req.body;
+    const { UserId, Category, Amount, oldamount } = req.body;
 
     try {
         const existingCategory = await Budget.findOne({ UserId, Category });
@@ -11,9 +11,9 @@ async function addbudget (req,res){
             return res.status(400).json({ error: 'Category already exists. Please update or delete first.' });
         }
 
-            const budget = await Budget.create(req.body);
-            res.status(201).json(budget);
-        
+        const budget = await Budget.create(req.body);
+        res.status(201).json(budget);
+
     } catch (error) {
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -21,10 +21,10 @@ async function addbudget (req,res){
 }
 async function getuserbudget(req, res) {
     const { UserId } = req.body;
-    
+
     try {
         const budgets = await Budget.find({ UserId });
-        
+
         if (budgets && budgets.length > 0) {
             // Extract relevant data from budgets
             const budgetData = budgets.map(budget => ({
@@ -48,21 +48,21 @@ async function update_amount(req, res) {
 
     try {
         // Find the budget record to update
-        const budget = await Budget.findOne({ UserId ,Category});
+        const budget = await Budget.findOne({ UserId, Category });
 
         if (!budget) {
             return res.status(404).json({ error: 'Budget not found' });
         }
-        
-        else{
-        // Update the amount in the budget record
-        budget.Amount = Amount;
-        budget.oldamount = Amount;
-        // Save the updated budget record
-        await budget.save();
 
-        // Send a success response
-        res.json({ message: 'Amount updated successfully' });
+        else {
+            // Update the amount in the budget record
+            budget.Amount = Amount;
+            budget.oldamount = Amount;
+            // Save the updated budget record
+            await budget.save();
+
+            // Send a success response
+            res.json({ message: 'Amount updated successfully' });
         }
     } catch (error) {
         console.error('Error:', error);
@@ -101,7 +101,7 @@ async function checkBudget(req, res) {
         if (hasZeroBudget) {
             // If any budget has an amount of 0, send a message
             res.json({ message: `You are out of your budget for one or more categories.` });
-        } 
+        }
     } catch (error) {
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal Server Error' });

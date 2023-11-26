@@ -93,9 +93,9 @@ body {
     animation-name: onloadAnim;
     animation-duration: 1s;
 }
+
 .btn i {
-     
-   
+
     font-size: 12px;
     margin-left: 4px;
 }
@@ -104,6 +104,7 @@ body {
     background: none;
     color: orange;
 }
+
 .create-account-link {
     display: block;
     text-align: right;
@@ -118,11 +119,23 @@ body {
 .create-account-link:hover {
     color: #ffa467;
 }
+.forgot-password-link {
+    display: block;
+    text-align: left;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
 
+.forgot-password-link:hover {
+    color: #ffa467;
+}
 @keyframes onloadAnim {
     from {
         transform: translateY(-88%);
     }
+
     to {
         transform: translateY(0);
     }

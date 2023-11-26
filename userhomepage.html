@@ -29,11 +29,11 @@
                 <i class="fas fa-home"></i>
                 <p>Home</p>
             </a>
-            <a href="budgetpage.html" class="nav-item" >
-                <i class="fas fa-chart-pie" ></i>
+            <a href="budgetpage.html" class="nav-item">
+                <i class="fas fa-chart-pie"></i>
                 <p>Plan Budget</p>
             </a>
-            <a href="expensepage.html" class="nav-item" >
+            <a href="expensepage.html" class="nav-item">
                 <i class="fas fa-dollar-sign"></i>
                 <p>Your Expenses</p>
             </a>
@@ -54,10 +54,10 @@
 
     <script src="https://kit.fontawesome.com/4077c6ef6a.js" crossorigin="anonymous"></script>
     <script>
-        
+
         document.addEventListener("DOMContentLoaded", function () {
-            
-           
+
+
             // Fetch budget data when the page is loaded
             getUserId(event);
             const userid = localStorage.getItem('UserId');
@@ -72,45 +72,45 @@
         const firstName = names[0];
         const lastName = names.slice(1).join(' ');
         const currentDate = new Date();
-       let time = 1;
-// Extract year, month, and day
-      const year = currentDate.getFullYear();
-      const month = currentDate.getMonth() + 1; // Month is zero-based, so we add 1
-      const day = currentDate.getDate();
-     const date = year + "-" + month + "-" + day;
+        let time = 1;
+        // Extract year, month, and day
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth() + 1; // Month is zero-based, so we add 1
+        const day = currentDate.getDate();
+        const date = year + "-" + month + "-" + day;
 
-function Checkdatetime(userId) {
-        // Make a fetch request to check the budget
-        fetch('http://localhost:3005/api/checkdateandtime', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ UserId: userId, Date:date }),
-        })
-        .then(response => response.json())
+        function Checkdatetime(userId) {
+            // Make a fetch request to check the budget
+            fetch('http://localhost:3005/api/checkdateandtime', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ UserId: userId, Date: date }),
+            })
+                .then(response => response.json())
 
-        .then(data => {
-           
-            if (data.messages && data.messages.length > 0) {
-        // If there are messages, show them as alerts
-        data.messages.forEach(message => {
-            alert(message);
-        });
-    }
-            // You can display the message in the UI as needed
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    }
+                .then(data => {
+
+                    if (data.messages && data.messages.length > 0) {
+                        // If there are messages, show them as alerts
+                        data.messages.forEach(message => {
+                            alert(message);
+                        });
+                    }
+                    // You can display the message in the UI as needed
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
         async function getUserId(event) {
-            
+
             event.preventDefault();
             const userData = {
-            FirstName: firstName,
-            LastName: lastName
-        };
+                FirstName: firstName,
+                LastName: lastName
+            };
 
             try {
                 const response = await fetch('http://localhost:3005/api/getid', {
@@ -124,7 +124,7 @@ function Checkdatetime(userId) {
                 if (response.ok) {
                     const userId = await response.json();
                     localStorage.setItem('UserId', JSON.stringify(userId))
-                   
+
                 } else {
                     const error = await response.json();
                     console.error(error);

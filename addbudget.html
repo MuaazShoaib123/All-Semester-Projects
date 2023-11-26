@@ -14,9 +14,9 @@
         <div class="form-container">
             <h1 class="title"> Add Budget</h1>
             <form id="signupForm" action="#" onsubmit="return submitForm(event)">
-                <div class="input-group" id = "category">
+                <div class="input-group" id="category">
                     <i class="fas fa-lightbulb"></i>
-                    <p > Category :
+                    <p> Category :
                         <select>
                             <option> --Select an Option </option>
                             <option> Food </option>
@@ -32,80 +32,80 @@
                     <input type="text" id="amount" placeholder="Budget" required>
                 </div>
                 <div class="btn-container">
-                    <button type="submit" class="btn" >Add </button>
+                    <button type="submit" class="btn">Add </button>
                 </div>
                 <a href="budgetpage.html" class="create-account-link"> Go Back</a>
             </form>
         </div>
-       
+
     </div>
 
     <script src="https://kit.fontawesome.com/4077c6ef6a.js" crossorigin="anonymous"></script>
     <script>
 
-const categoryDropdown = document.getElementById('category');  
-        
-    async function submitForm(event) {
-         
-        event.preventDefault();
-        const selectedOption = categoryDropdown.querySelector('select').options[categoryDropdown.querySelector('select').selectedIndex].value;
+        const categoryDropdown = document.getElementById('category');
 
-        const amount = document.getElementById('amount').value;
-        const userId = localStorage.getItem('UserId');
+        async function submitForm(event) {
 
-        if (!validateInteger(amount)) {
-            alert('Please enter a valid integer for the amount.');
-            return false;
-        }
+            event.preventDefault();
+            const selectedOption = categoryDropdown.querySelector('select').options[categoryDropdown.querySelector('select').selectedIndex].value;
 
-        else if (selectedOption === '--Select an Option') {
-            alert('Please select a valid option');
-            return false;
+            const amount = document.getElementById('amount').value;
+            const userId = localStorage.getItem('UserId');
 
-        }
-        
+            if (!validateInteger(amount)) {
+                alert('Please enter a valid integer for the amount.');
+                return false;
+            }
 
-         else {
+            else if (selectedOption === '--Select an Option') {
+                alert('Please select a valid option');
+                return false;
 
-            const userData = {
-                UserId: userId,
-                Category: selectedOption,
-                Amount: amount,
-                oldamount : amount
-            };
+            }
 
-            try {
-                const response = await fetch('http://localhost:3005/api/addbudget', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(userData)
-                });
 
-                if (response.ok) {
-                    const result = await response.json();
-                    alert('Budget added successfully.');
-                    window.location.href = 'budgetpage.html';
-                } else {
-                    
-                    alert("Budget category already exists you can only update or delete this category..!");
+            else {
+
+                const userData = {
+                    UserId: userId,
+                    Category: selectedOption,
+                    Amount: amount,
+                    oldamount: amount
+                };
+
+                try {
+                    const response = await fetch('http://localhost:3005/api/addbudget', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(userData)
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        alert('Budget added successfully.');
+                        window.location.href = 'budgetpage.html';
+                    } else {
+
+                        alert("Budget category already exists you can only update or delete this category..!");
+                    }
+                }
+                catch (error) {
+                    console.error('Error:', error);
                 }
             }
-            catch (error) {
-                console.error('Error:', error);
-            }
-    }
-    return false; // Prevent form submission
-            
-}
+            return false; // Prevent form submission
 
-  function validateInteger(value) {
-    // Check if the value is an integer
-    return /^-?\d+$/.test(value);
-  }
+        }
 
-  
+        function validateInteger(value) {
+            // Check if the value is an integer
+            return /^-?\d+$/.test(value);
+        }
+
+
     </script>
 </body>
 

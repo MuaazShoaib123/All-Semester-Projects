@@ -11,24 +11,31 @@ body {
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-left: 15px solid green; /* Adjust the color as needed */
-    border-top: 5px solid green; /* Adjust the color as needed */
-    border-right: 15px solid green; /* Adjust the color as needed */
-    border-bottom: 5px solid green; /* Adjust the color as needed */
-    text-align: center; /* Center-align the title */
+    border-left: 15px solid green;
+    /* Adjust the color as needed */
+    border-top: 5px solid green;
+    /* Adjust the color as needed */
+    border-right: 15px solid green;
+    /* Adjust the color as needed */
+    border-bottom: 5px solid green;
+    /* Adjust the color as needed */
+    text-align: center;
+    /* Center-align the title */
     position: relative;
 }
 
 .form-container h1 {
     font-family: 'Poppins', sans-serif;
     margin-top: 0;
-    text-decoration: underline; /* Remove default margin for the title */
+    text-decoration: underline;
+    /* Remove default margin for the title */
 }
 
 .nav {
     display: flex;
     justify-content: space-around;
-    margin-top: 20px; /* Adjust the space from the title */
+    margin-top: 20px;
+    /* Adjust the space from the title */
 }
 
 .nav-item {
@@ -45,6 +52,7 @@ body {
     text-decoration: none;
     color: black;
 }
+
 .nav-item:hover {
     background-color: lightgreen;
 }
@@ -63,10 +71,13 @@ table {
 thead {
     background-color: lightgreen;
 }
-tbody{
+
+tbody {
     background-color: gainsboro;
 }
-th, td {
+
+th,
+td {
     border: 1px solid black;
     text-align: left;
     padding: 8px;
@@ -75,14 +86,17 @@ th, td {
 th {
     font-weight: bold;
 }
+
 .btn-small {
     padding: 5px 10px;
     font-size: 12px;
 }
+
 @keyframes onloadAnim {
     from {
         transform: translateY(-88%);
     }
+
     to {
         transform: translateY(0);
     }
