@@ -1,4 +1,5 @@
-const Budget = require('../models/budget')
+const Budget = require('../models/budget');
+const BudgetAudit = require('../models/budgetAudit');
 
 async function addbudget(req, res) {
 
@@ -55,6 +56,14 @@ async function update_amount(req, res) {
         }
 
         else {
+
+            await BudgetAudit.create({
+                UserId : budget.UserId,
+                Category:budget.Category,
+                Amount: budget.Amount,
+                Action: 'update'
+            });
+    
             // Update the amount in the budget record
             budget.Amount = Amount;
             budget.oldamount = Amount;
@@ -75,11 +84,19 @@ async function delete_budget(req, res) {
 
     try {
         // Find the budget record to delete
-        const budget = await Budget.findOneAndDelete({ UserId, Category });
+        const budget = await Budget.findOne({ UserId, Category });
 
         if (!budget) {
             return res.status(404).json({ error: 'Budget not found' });
         }
+        await BudgetAudit.create({
+            UserId : budget.UserId,
+            Category:budget.Category,
+            Amount: budget.Amount,
+            Action: 'delete'
+        });
+
+        budget.deleteOne();
         // Send a success response
         res.json({ message: 'Budget deleted successfully' });
     } catch (error) {

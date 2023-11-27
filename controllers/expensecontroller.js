@@ -1,5 +1,7 @@
-const Expense = require('../models/expense')
-const Budget = require('../models/budget')
+const Expense = require('../models/expense');
+const Budget = require('../models/budget');
+const BudgetAudit = require('../models/budgetAudit');
+const ExpenseAudit = require('../models/expenseAudit');
 
 async function addexpense(req, res) {
 
@@ -59,7 +61,6 @@ async function getuserexpense(req, res) {
 }
 async function update_amount(req, res) {
     const { UserId, Category, Amount } = req.body;
-    const value = 0;
     try {
         // Find the expense record to update
         const expense = await Expense.findOne({ UserId, Category });
@@ -69,6 +70,21 @@ async function update_amount(req, res) {
         }
 
         else {
+
+            await BudgetAudit.create({
+                UserId : budget.UserId,
+                Category:budget.Category,
+                Amount: budget.Amount,
+                Action: 'Expense Update'
+            });
+
+            await ExpenseAudit.create({
+                UserId : expense.UserId,
+                Category:expense.Category,
+                Description:expense.Description,
+                Amount: expense.Amount,
+                Action: 'update'
+            });
             // Update the amount in the budget record
             expense.Amount = Amount;
             budget.Amount = budget.oldamount - expense.Amount;
@@ -90,16 +106,30 @@ async function delete_expense(req, res) {
 
     try {
         // Find the expense record to delete
-        const expense = await Expense.findOne({ UserId, Category });
+        const expense = await Expense.find({ UserId, Category });
         const budget = await Budget.findOne({ UserId, Category });
+        await BudgetAudit.create({
+            UserId : budget.UserId,
+            Category:budget.Category,
+            Amount: budget.Amount,
+            Action: 'Expense Delete'
+        });
         budget.Amount = budget.Amount + expense.Amount;
         budget.oldamount = budget.Amount;
         await budget.save();
-        const expense2 = await Expense.findOneAndDelete({ UserId, Category });
+        const expense2 = await Expense.findOne({ UserId, Category });
 
         if (!expense2) {
             return res.status(404).json({ error: 'Expense not found' });
         }
+        await ExpenseAudit.create({
+            UserId : expense2.UserId,
+            Category:expense2.Category,
+            Description:expense2.Description,
+            Amount: expense2.Amount,
+            Action: 'delete'
+        });
+        expense2.deleteOne();
         // Send a success response
         res.json({ message: 'Expense deleted successfully' });
     } catch (error) {

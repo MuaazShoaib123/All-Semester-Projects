@@ -1,5 +1,5 @@
 const Reminder = require('../models/reminders')
-
+const ReminderAudit = require('../models/reminderAudit');
 async function addreminder(req, res) {
 
 
@@ -50,6 +50,16 @@ async function delete_reminder(req, res) {
         if (!reminder) {
             return res.status(404).json({ error: 'Reminder not found' });
         }
+        await ReminderAudit.create({
+            UserId : reminder.UserId,
+            Category:reminder.Category,
+            Description:reminder.Description,
+            Date: reminder.Date,
+            Time:reminder.Time,
+            Status:reminder.Status,
+            Action: 'delete'
+        });
+        reminder.deleteOne();
         // Send a success response
         res.json({ message: 'Expense deleted successfully' });
     } catch (error) {
@@ -68,6 +78,13 @@ async function update_description(req, res) {
         }
 
         else {
+
+            await ReminderAudit.create({
+                UserId : reminder.UserId,
+                Category:reminder.Category,
+                Description:reminder.Description,
+                Action: 'Description Updated'
+            });
             // Update the amount in the budget record
             reminder.Description = Description;
             await reminder.save();
@@ -91,6 +108,13 @@ async function update_date(req, res) {
         }
 
         else {
+
+            await ReminderAudit.create({
+                UserId : reminder.UserId,
+                Category:reminder.Category,
+                Date:reminder.Date,
+                Action: 'Date Updated'
+            });
             // Update the amount in the budget record
             reminder.Date = Date;
             if (reminder.Date != date2) {
@@ -121,6 +145,12 @@ async function update_time(req, res) {
         }
 
         else {
+            await ReminderAudit.create({
+                UserId : reminder.UserId,
+                Category:reminder.Category,
+                Time:reminder.Time,
+                Action: 'Time Updated'
+            });
             // Update the amount in the budget record
             reminder.Time = Time;
             await reminder.save();
