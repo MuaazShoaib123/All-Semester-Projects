@@ -2,7 +2,7 @@ const Expense = require('../models/expense');
 const Budget = require('../models/budget');
 const BudgetAudit = require('../models/budgetAudit');
 const ExpenseAudit = require('../models/expenseAudit');
-
+const Logs = require('../models/Log');
 async function addexpense(req, res) {
 
     const { UserId, Category, Description, Amount } = req.body;
@@ -30,6 +30,12 @@ async function addexpense(req, res) {
         }
 
     } catch (error) {
+
+        await Logs.create({
+            TableName: 'Expense',
+            functionName: 'addexpense',
+            exceptionMessage: error.message,
+          });
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
@@ -55,6 +61,12 @@ async function getuserexpense(req, res) {
             return res.status(404).json({ error: "Expense data not found for the user." });
         }
     } catch (error) {
+
+        await Logs.create({
+            TableName: 'Expense',
+            functionName: 'getuserexpense',
+            exceptionMessage: error.message,
+          });
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
@@ -96,6 +108,12 @@ async function update_amount(req, res) {
             res.json({ message: 'Amount updated successfully' });
         }
     } catch (error) {
+
+        await Logs.create({
+            TableName: 'Expense',
+            functionName: 'update_amount',
+            exceptionMessage: error.message,
+          });
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
@@ -133,6 +151,12 @@ async function delete_expense(req, res) {
         // Send a success response
         res.json({ message: 'Expense deleted successfully' });
     } catch (error) {
+
+        await Logs.create({
+            TableName: 'Expense',
+            functionName: 'delete_expense',
+            exceptionMessage: error.message,
+          });
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }

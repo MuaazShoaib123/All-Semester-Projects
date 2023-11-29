@@ -1,6 +1,6 @@
 const Budget = require('../models/budget');
 const BudgetAudit = require('../models/budgetAudit');
-
+const Logs = require('../models/Log');
 async function addbudget(req, res) {
 
     const { UserId, Category, Amount, oldamount } = req.body;
@@ -16,6 +16,12 @@ async function addbudget(req, res) {
         res.status(201).json(budget);
 
     } catch (error) {
+        
+        await Logs.create({
+            TableName: 'Budget',
+            functionName: 'addbudget',
+            exceptionMessage: error.message,
+          });
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
@@ -31,7 +37,6 @@ async function getuserbudget(req, res) {
             const budgetData = budgets.map(budget => ({
                 Category: budget.Category,
                 Amount: budget.Amount
-
             }));
 
             return res.json(budgetData);
@@ -39,6 +44,12 @@ async function getuserbudget(req, res) {
             return res.status(404).json({ error: "Budget data not found for the user." });
         }
     } catch (error) {
+
+        await Logs.create({
+            TableName: 'Budget',
+            functionName: 'getuserbudget',
+            exceptionMessage: error.message,
+          });
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
@@ -69,11 +80,16 @@ async function update_amount(req, res) {
             budget.oldamount = Amount;
             // Save the updated budget record
             await budget.save();
-
             // Send a success response
             res.json({ message: 'Amount updated successfully' });
         }
     } catch (error) {
+
+        await Logs.create({
+            TableName: 'Budget',
+            functionName: 'update_amount',
+            exceptionMessage: error.message,
+          });
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
@@ -100,6 +116,12 @@ async function delete_budget(req, res) {
         // Send a success response
         res.json({ message: 'Budget deleted successfully' });
     } catch (error) {
+
+         await Logs.create({
+            TableName: 'Budget',
+            functionName: 'delete_budget',
+            exceptionMessage: error.message,
+          });
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
@@ -120,6 +142,12 @@ async function checkBudget(req, res) {
             res.json({ message: `You are out of your budget for one or more categories.` });
         }
     } catch (error) {
+
+        await Logs.create({
+            TableName: 'Budget',
+            functionName: 'checkbudget',
+            exceptionMessage: error.message,
+          });
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }

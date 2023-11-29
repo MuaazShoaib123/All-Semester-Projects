@@ -33,7 +33,7 @@
 
     <script src="https://kit.fontawesome.com/4077c6ef6a.js" crossorigin="anonymous"></script>
     <script>
-
+       
         window.onload = localStorage.clear();
         async function Login(event) {
             event.preventDefault();
@@ -66,6 +66,7 @@
                     alert("Incorrect Email or Password");
                 }
             } catch (error) {
+                
                 console.error('Error:', error);
             }
         }

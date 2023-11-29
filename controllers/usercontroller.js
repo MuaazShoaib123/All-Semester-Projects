@@ -1,4 +1,5 @@
 const User = require('../models/users')
+const Logs = require('../models/Log');
 async function adduser(req, res) {
 
     try {
@@ -6,6 +7,12 @@ async function adduser(req, res) {
         res.status(201).json(user);
     }
     catch (err) {
+
+        await Logs.create({
+            TableName: 'User',
+            functionName: 'adduser',
+            exceptionMessage: error.message,
+          });
         res.status(500).json({ error: err.message });
     }
 }
@@ -26,6 +33,12 @@ async function login(req, res) {
             return res.status(401).json({ error: "Incorrect Password" });
         }
     } catch (error) {
+
+        await Logs.create({
+            TableName: 'User',
+            functionName: 'login',
+            exceptionMessage: error.message,
+          });
         res.status(500).json({ error: 'Internal Server Error' });
     }
 }
@@ -43,6 +56,12 @@ async function getuserid(req, res) {
             return res.status(401).json({ error: "User not Found" });
         }
     } catch (error) {
+
+        await Logs.create({
+            TableName: 'User',
+            functionName: 'getuserid',
+            exceptionMessage: error.message,
+          });
         res.status(500).json({ error: 'Internal Server Error' });
     }
 }
@@ -60,6 +79,12 @@ async function change_password(req, res) {
         await user.save();
         return res.json("Password Changed Successfully");
     } catch (error) {
+
+        await Logs.create({
+            TableName: 'User',
+            functionName: 'change_password',
+            exceptionMessage: error.message,
+          });
         res.status(500).json({ error: 'Internal Server Error' });
     }
 }

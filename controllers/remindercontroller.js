@@ -1,5 +1,6 @@
 const Reminder = require('../models/reminders')
 const ReminderAudit = require('../models/reminderAudit');
+const Logs = require('../models/Log');
 async function addreminder(req, res) {
 
 
@@ -9,6 +10,12 @@ async function addreminder(req, res) {
         res.status(201).json(reminder);
 
     } catch (error) {
+
+        await Logs.create({
+            TableName: 'Reminder',
+            functionName: 'addreminder',
+            exceptionMessage: error.message,
+          });
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
@@ -36,6 +43,11 @@ async function getuserreminder(req, res) {
             return res.status(404).json({ error: "Reminder data not found for the user." });
         }
     } catch (error) {
+        await Logs.create({
+            TableName: 'Reminder',
+            functionName: 'getuserreminder',
+            exceptionMessage: error.message,
+          });
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
@@ -63,6 +75,12 @@ async function delete_reminder(req, res) {
         // Send a success response
         res.json({ message: 'Expense deleted successfully' });
     } catch (error) {
+
+        await Logs.create({
+            TableName: 'Reminder',
+            functionName: 'delete_reminder',
+            exceptionMessage: error.message,
+          });
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
@@ -78,7 +96,8 @@ async function update_description(req, res) {
         }
 
         else {
-
+            
+            // throw new Error('Simulated error in update_description function');
             await ReminderAudit.create({
                 UserId : reminder.UserId,
                 Category:reminder.Category,
@@ -92,6 +111,12 @@ async function update_description(req, res) {
             res.json({ message: 'Reminder Updated Successfully' });
         }
     } catch (error) {
+
+        await Logs.create({
+            TableName: 'Reminder',
+            functionName: 'update_description',
+            exceptionMessage: error.message,
+          });
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
@@ -130,6 +155,12 @@ async function update_date(req, res) {
             res.json({ message: 'Reminder Updated Successfully' });
         }
     } catch (error) {
+
+        await Logs.create({
+            TableName: 'Reminder',
+            functionName: 'update_date',
+            exceptionMessage: error.message,
+          });
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
@@ -158,6 +189,12 @@ async function update_time(req, res) {
             res.json({ message: 'Reminder Updated Successfully' });
         }
     } catch (error) {
+
+        await Logs.create({
+            TableName: 'Reminder',
+            functionName: 'update_time',
+            exceptionMessage: error.message,
+          });
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
@@ -183,6 +220,12 @@ async function checkdateandtime(req, res) {
 
     }
     catch (error) {
+
+        await Logs.create({
+            TableName: 'Reminder',
+            functionName: 'checkdateandtime',
+            exceptionMessage: error.message,
+          });
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
