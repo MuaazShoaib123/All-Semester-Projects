@@ -1,11 +1,12 @@
 {
-  "name": "seproject",
+  "name": "Expense-Management-System",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "start": "index.js",
+  "main": "Backend/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "concurrently \"npm run start:Frontend\" \"npm run start:Backend\"",
+    "start:Frontend": "http-server frontend -a localhost -p 8080 -o /signin.html",
+    "start:Backend": "node backend/server.js"
   },
   "author": "",
   "license": "ISC",

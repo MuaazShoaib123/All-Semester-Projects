@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" type="text/css" href="signup.css">
+
+</head>
+
+<body>
+    <div class="formDiv">
+        <div class="form-container">
+            <h1 class="title">Expense Management Application</h1>
+            <form id="signupForm" action="#" onsubmit="return submitForm()">
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="firstName" placeholder="First Name" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="lastName" placeholder="Last Name" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-calendar"></i>
+                    <input type="date" id="DOB" placeholder="Date of Birth" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="email" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="text" id="password" placeholder="Password" required>
+                    <i class="fas fa-eye" id="togglePassword"></i>
+                </div>
+                <div class="btn-container">
+                    <button type="submit" class="btn">Sign Up</button>
+                </div>
+                <a href="signin.html?flag=false" class="create-account-link">Already have an account? Log In</a>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://kit.fontawesome.com/4077c6ef6a.js" crossorigin="anonymous"></script>
+    <script>
+
+        function submitForm() {
+
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const dob = document.getElementById('DOB').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+
+            // Email validation using regex
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address');
+                return false;
+            }
+
+            // Prepare the data to be sent
+            const userData = {
+                FirstName: firstName,
+                LastName: lastName,
+                DOB: dob,
+                Email: email,
+                Password: password
+            };
+
+            // Send data to the API endpoint
+            fetch('http://localhost:3005/api/addusers', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    alert('User registered successfully!');
+                    window.location.href = 'signin.html';
+
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert('An error occurred while registering the user.');
+                });
+
+            return false; // Prevent form submission
+        }
+
+
+    </script>
+</body>
+
+</html>

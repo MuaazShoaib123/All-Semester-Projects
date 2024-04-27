@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Page</title>
+    <link rel="stylesheet" type="text/css" href="budgetpage.css">
+    <script src="https://kit.fontawesome.com/4077c6ef6a.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <div class="form-container">
+        <h1>Your Budget Management</h1>
+
+        <div class="nav">
+            <a href="addbudget.html" class="nav-item">
+                <div class="nav-item">
+                    <p> Add Budget</p>
+                </div>
+            </a>
+            <div class="nav-item">
+                <a href="budgetpage.html" class="nav-item">
+                    <p> Review Budget</p>
+                </a>
+            </div>
+            <!-- Add the Back option here -->
+            <div class="nav-item">
+                <a href="userhomepage.html" class="nav-item">
+                    <p> Back</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table id="budgetTable">
+            <thead>
+                <tr>
+                    <th>Budget Category</th>
+                    <th>Amount</th>
+                    <th> Page Details</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- Your table rows will go here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+
+        const userId = localStorage.getItem('UserId');
+        document.addEventListener("DOMContentLoaded", function () {
+            
+            // Fetch budget data when the page is loaded
+            fetchBudgetData();
+        });
+
+        function fetchBudgetData() {
+
+            // Make a fetch request to your server to get budget data
+            fetch('http://localhost:3005/api/getuserbudget', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                // Pass the user ID here
+                body: JSON.stringify({ UserId: userId }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Call a function to update the table with the fetched data
+                    updateTable(data);
+
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function updateTable(data) {
+            // Get the table body element
+            const tableBody = document.getElementById('tableBody');
+
+            // Clear existing rows
+            tableBody.innerHTML = '';
+            // Loop through the fetched data and create rows
+            data.forEach(budget => {
+                const row = document.createElement('tr');
+
+                // Create cells for Budget Category and Amount
+                const categoryCell = document.createElement('td');
+                categoryCell.textContent = budget.Category;
+
+                const amountCell = document.createElement('td');
+                amountCell.textContent = budget.Amount;
+
+                // Create a cell for Page Details with Edit and Delete buttons
+                const detailsCell = document.createElement('td');
+                const editButton = document.createElement('button');
+                editButton.textContent = 'Edit';
+                editButton.classList.add('btn-small');
+                editButton.addEventListener('click', function () {
+                    editBudget(budget.Category, budget.Amount); // Pass the budget category to the edit function
+                });
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.classList.add('btn-small');
+                deleteButton.addEventListener('click', function () {
+                    deleteBudget(budget.Category);
+                });
+
+                detailsCell.appendChild(editButton);
+                detailsCell.appendChild(deleteButton);
+
+                // Append cells to the row
+                row.appendChild(categoryCell);
+                row.appendChild(amountCell);
+                row.appendChild(detailsCell);
+
+                // Append the row to the table body
+                tableBody.appendChild(row);
+            });
+        }
+
+        function editBudget(Category, currentAmount) {
+
+            const newAmount = prompt(`Update amount for ${currentAmount}:`, currentAmount);
+
+            if (validateInteger(newAmount)) {
+                // Make a fetch request to update the amount
+                fetch('http://localhost:3005/api/updateamount', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ UserId: userId, Category: Category, Amount: newAmount }),
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Assuming the server returns a success message
+                        alert('Amount updated successfully.');
+                        // Refresh the table data after updating
+                        fetchBudgetData();
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Error updating amount. Please try again.');
+                    });
+            }
+            else {
+
+                alert("Please enter the correct integer value..!");
+            }
+        }
+
+
+        function deleteBudget(Category) {
+            // Similar to edit, make a fetch request to delete the budget
+            if (confirm('Are you sure you want to delete this budget?')) {
+                fetch('http://localhost:3005/api/deletebudget', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ UserId: userId, Category: Category }),
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Assuming the server returns a success message
+                        alert('Budget deleted successfully.');
+                        // Refresh the table data after deleting
+                        fetchBudgetData();
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Error deleting budget. Please try again.');
+                    });
+            }
+        }
+        function validateInteger(value) {
+            // Check if the value is an integer
+            return /^-?\d+$/.test(value);
+        }
+
+    </script>
+</body>
+
+</html>

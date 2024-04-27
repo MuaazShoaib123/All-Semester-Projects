@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Reminder</title>
+    <link rel="stylesheet" type="text/css" href="addreminder.css">
+
+</head>
+
+<body>
+    <div class="formDiv">
+        <div class="form-container">
+            <h1 class="title"> Add Reminders </h1>
+            <form id="signupForm" action="#" onsubmit="return submitForm(event)">
+                <div class="input-group" id="category">
+                    <i class="fas fa-lightbulb"></i>
+                    <p> Category :
+                        <select>
+                            <option> --Select an Option </option>
+                            <option> Food </option>
+                            <option> Utility Bills </option>
+                            <option> Entertainment </option>
+                            <option> Rent </option>
+                            <option> Miscallenaous Uses </option>
+                        </select>
+                    </p>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-info-circle"></i>
+                    <input type="text" id="description" placeholder="Description" required>
+                </div>
+                <div class="input-group">
+                    <i class="far fa-calendar-alt"></i>
+                    <input type="date" id="date" placeholder="Date" required>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="hours" placeholder="Hours" required>
+                    <input type="text" id="minutes" placeholder="Minutes" required>
+                    <select id="ampm" required>
+                        <option value="AM">AM</option>
+                        <option value="PM">PM</option>
+                    </select>
+                </div>
+                <div class="btn-container">
+                    <button type="submit" class="btn">Add </button>
+                </div>
+                <a href="reminderpage.html" class="create-account-link"> Go Back</a>
+            </form>
+        </div>
+
+    </div>
+
+    <script src="https://kit.fontawesome.com/4077c6ef6a.js" crossorigin="anonymous"></script>
+    <script>
+
+        const categoryDropdown = document.getElementById('category');
+
+        // Getting the User Id
+        const userId = localStorage.getItem('UserId');
+        
+        // Event to Submit Form
+        async function submitForm(event) {
+            event.preventDefault();
+            const selectedOption = categoryDropdown.querySelector('select').options[categoryDropdown.querySelector('select').selectedIndex].value;
+            const date = document.getElementById('date').value;
+            const hours = document.getElementById('hours').value;
+            const mins = document.getElementById('minutes').value;
+            const ampm = document.getElementById('ampm').value;
+            if (!validateInteger(hours)) {
+
+                alert("Please enter correct integer values");
+                return false;
+            }
+            
+            // Check whether the integer is valid or not
+            if (!validateInteger(mins)) {
+
+                alert("Please enter correct integer values");
+                return false;
+            }
+
+            const time = hours + ":" + mins + ampm;
+            const userId = localStorage.getItem('UserId');
+            const description = document.getElementById('description').value;
+
+            if (selectedOption === '--Select an Option') {
+                alert('Please select a valid option');
+                return false;
+            } else {
+                const userData = {
+                    UserId: userId,
+                    Category: selectedOption,
+                    Description: description,
+                    Date: date,
+                    Time: time,
+                    Status: "Inactive"
+                };
+                try {
+
+                    // Fetch the Api for adding the reminder 
+                    const response = await fetch('http://localhost:3005/api/addreminder', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(userData)
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        alert('Reminder added successfully.');
+                        window.location.href = 'reminderpage.html';
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            }
+            return false; // Prevent form submission
+        }
+        
+        // Checking whether the integer is valid or not
+        function validateInteger(value) {
+            // Check if the value is an integer
+            return /^-?\d+$/.test(value);
+        }
+
+    </script>
+</body>
+
+</html>
