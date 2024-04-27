@@ -1,0 +1,3 @@
+Muaaz,muaaz_123,Muaaz Shoaib,202101,FSC-PRE ENGG,18,Lahore,2021
+Azfar,azfar_123,Muhammad Azfar,202103,FSC-PRE Medical,18,Lahore,2021
+Shehroz,shehroz_123,Shehroz Irfan,202103,FSC-PRE ENGG,18,Lahore,2021

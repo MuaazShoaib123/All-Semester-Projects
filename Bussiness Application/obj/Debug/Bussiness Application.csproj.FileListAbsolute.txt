@@ -1,0 +1,29 @@
+E:\Semester 2\Week 9\Bussiness Application\Bussiness Application\bin\Debug\Bussiness Application.exe.config
+E:\Semester 2\Week 9\Bussiness Application\Bussiness Application\bin\Debug\Bussiness Application.exe
+E:\Semester 2\Week 9\Bussiness Application\Bussiness Application\bin\Debug\Bussiness Application.pdb
+E:\Semester 2\Week 9\Bussiness Application\Bussiness Application\obj\Debug\Bussiness Application.csproj.AssemblyReference.cache
+E:\Semester 2\Week 9\Bussiness Application\Bussiness Application\obj\Debug\Bussiness_Application.Form1.resources
+E:\Semester 2\Week 9\Bussiness Application\Bussiness Application\obj\Debug\Bussiness_Application.Properties.Resources.resources
+E:\Semester 2\Week 9\Bussiness Application\Bussiness Application\obj\Debug\Bussiness Application.csproj.GenerateResource.cache
+E:\Semester 2\Week 9\Bussiness Application\Bussiness Application\obj\Debug\Bussiness Application.csproj.CoreCompileInputs.cache
+E:\Semester 2\Week 9\Bussiness Application\Bussiness Application\obj\Debug\Bussiness Application.exe
+E:\Semester 2\Week 9\Bussiness Application\Bussiness Application\obj\Debug\Bussiness Application.pdb
+E:\Semester 2\Week 9\Bussiness Application\Bussiness Application\obj\Debug\Bussiness_Application.Form2.resources
+E:\Semester 2\Week 9\Bussiness Application\Bussiness Application\obj\Debug\Bussiness_Application.Form3.resources
+E:\Semester 2\Week 9\Bussiness Application\Bussiness Application\obj\Debug\Bussiness_Application.Form4.resources
+E:\Semester 2\Week 9\Bussiness Application\Bussiness Application\obj\Debug\Bussiness_Application.Form5.resources
+E:\Semester 2\Week 9\Bussiness Application\Bussiness Application\obj\Debug\Bussiness_Application.Form6.resources
+E:\Semester 2\Week 9\Bussiness Application\Bussiness Application\obj\Debug\Bussiness_Application.Form7.resources
+E:\Semester 2\Week 9\Bussiness Application\Bussiness Application\obj\Debug\Bussiness_Application.Form8.resources
+E:\Semester 2\Week 9\Bussiness Application\Bussiness Application\obj\Debug\Bussiness_Application.Form9.resources
+E:\Semester 2\Week 9\Bussiness Application\Bussiness Application\obj\Debug\Bussiness_Application.Form10.resources
+E:\Semester 2\Week 9\Bussiness Application\Bussiness Application\obj\Debug\Bussiness_Application.Form11.resources
+E:\Semester 2\Week 9\Bussiness Application\Bussiness Application\obj\Debug\Bussiness_Application.Form12.resources
+E:\Semester 2\Week 9\Bussiness Application\Bussiness Application\obj\Debug\Bussiness_Application.Form13.resources
+E:\Semester 2\Week 9\Bussiness Application\Bussiness Application\obj\Debug\Bussiness_Application.Form14.resources
+E:\Semester 2\Week 9\Bussiness Application\Bussiness Application\obj\Debug\Bussiness_Application.Form15.resources
+E:\Semester 2\Week 9\Bussiness Application\Bussiness Application\obj\Debug\Bussiness_Application.Form16.resources
+E:\Semester 2\Week 9\Bussiness Application\Bussiness Application\obj\Debug\Bussiness_Application.Form19.resources
+E:\Semester 2\Week 9\Bussiness Application\Bussiness Application\obj\Debug\Bussiness_Application.Form20.resources
+E:\Semester 2\Week 9\Bussiness Application\Bussiness Application\obj\Debug\Bussiness_Application.Form21.resources
+E:\Semester 2\Week 9\Bussiness Application\Bussiness Application\obj\Debug\Bussiness_Application.Form23.resources

@@ -1,0 +1,5 @@
+Muaaz,Shoaib,16,1040,Lahore,FSC-PRE ENGG,94.54546
+Muhammad,Azfar,18,1030,Lahore,FSC-PRE Medical,93.63636
+Ali,Akbar,16,987,Gujranwala,ICS,89.72727
+Abdul Saboor,Khan,18,835,Faislabad,ICS,75.90909
+Shehroz,Irfan,18,1030,Lahore,FSC-PRE ENGG,93.63636
