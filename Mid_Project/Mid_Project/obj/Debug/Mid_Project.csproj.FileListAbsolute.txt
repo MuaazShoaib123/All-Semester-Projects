@@ -1,0 +1,14 @@
+C:\Users\Best\Desktop\MidProject\Mid_Project\Mid_Project\bin\Debug\Mid_Project.exe.config
+C:\Users\Best\Desktop\MidProject\Mid_Project\Mid_Project\bin\Debug\Mid_Project.exe
+C:\Users\Best\Desktop\MidProject\Mid_Project\Mid_Project\bin\Debug\Mid_Project.pdb
+C:\Users\Best\Desktop\MidProject\Mid_Project\Mid_Project\obj\Debug\Mid_Project.csproj.AssemblyReference.cache
+C:\Users\Best\Desktop\MidProject\Mid_Project\Mid_Project\obj\Debug\Mid_Project.Form1.resources
+C:\Users\Best\Desktop\MidProject\Mid_Project\Mid_Project\obj\Debug\Mid_Project.Properties.Resources.resources
+C:\Users\Best\Desktop\MidProject\Mid_Project\Mid_Project\obj\Debug\Mid_Project.csproj.GenerateResource.cache
+C:\Users\Best\Desktop\MidProject\Mid_Project\Mid_Project\obj\Debug\Mid_Project.csproj.CoreCompileInputs.cache
+C:\Users\Best\Desktop\MidProject\Mid_Project\Mid_Project\obj\Debug\Mid_Project.exe
+C:\Users\Best\Desktop\MidProject\Mid_Project\Mid_Project\obj\Debug\Mid_Project.pdb
+C:\Users\Best\Desktop\MidProject\Mid_Project\Mid_Project\bin\Debug\FontAwesome.Sharp.dll
+C:\Users\Best\Desktop\MidProject\Mid_Project\Mid_Project\obj\Debug\Mid_Project.csproj.CopyComplete
+C:\Users\Best\Desktop\MidProject\Mid_Project\Mid_Project\obj\Debug\Mid_Project.Form2.resources
+C:\Users\Best\Desktop\MidProject\Mid_Project\Mid_Project\obj\Debug\Mid_Project.Form3.resources
